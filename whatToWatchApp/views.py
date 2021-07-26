@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from django.template import Context, loader
 
 from bs4 import BeautifulSoup
+from requests_html import HTMLSession
 import requests as webrequests
+import random, time
 
 # Create your views here.
 def index(request):
@@ -25,11 +27,12 @@ def anime(request):
     statusList = []
 
     watchStatus = [watching, completed, onhold, dropped, plantowatch]
-    for var in watchStatus:
-        if var is 'true':
-            statusList.append(watchStatusDict[var])
-        elif var not in ['true', 'false']:
-            print(var, type(var))
+    watchString = ['watching', 'completed', 'onhold', 'dropped', 'plantowatch']
+    for i in range(0, len(watchStatus)):
+        if watchStatus[i] == 'true':
+            statusList.append(watchStatusDict[watchString[i]])
+        elif watchStatus[i] not in ['true', 'false']:
+            print(watchStatus[i], type(watchStatus[i]))
             return render(request, "whatToWatchApp/index.html")
 
     URL = 'https://myanimelist.net/profile/' + str(name)
@@ -45,9 +48,23 @@ def anime(request):
         status = watchStatusDict['all']
 
     if status is not -1:
-        URL = 'https://myanimelist.net/animelist/' + name + '?status=' + status
-        page = webrequests.get(URL)
-    else:
-        pass
+        URL = 'https://myanimelist.net/animelist/' + str(name) + '?status=' + str(status)
 
-    return render(request, "whatToWatchApp/anime.html")
+        session = HTMLSession()
+        response = session.get(URL)
+        table = response.html.find('.list-table', first=True)
+        table = table.attrs["data-items"]
+        
+        table = table.replace('null', 'None')
+        table = table.replace('true', 'True')
+        table = table.replace('false', 'False')
+        
+        table = eval(table)
+        result = random.choice(table)
+        print("Dein Random Anime ist:", result['anime_title'], result['anime_url'].replace('\\', ''))
+        # print(response.html.find('a.sort.link')[5].text)
+
+    else:
+        return render(request, "whatToWatchApp/index.html")
+
+    return render(request, "whatToWatchApp/anime.html", {"title": result['anime_title']})
