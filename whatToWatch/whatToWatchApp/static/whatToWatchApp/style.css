@@ -1,0 +1,85 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  padding: 25px;
+}
+
+.flex-box, #username-form, #username-form > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#username-form > * {
+  margin: 5px;
+}
+
+#username-input > * {
+  margin: 5px;
+}
+
+input[type="text"] {
+  width: 500px;
+  padding: 10px;
+  text-align: center;
+}
+
+input[type="submit"] {
+  margin: 10px;
+  background-color: #1d439b;
+}
+
+#checkbox-grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: max-content max-content max-content;
+      grid-template-columns: -webkit-max-content -webkit-max-content -webkit-max-content;
+      grid-template-columns: max-content max-content max-content;
+  gap: 0px 15px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.rect {
+  height: 16px;
+  width: 16px;
+  border-radius: 16px 16px;
+}
+
+.watching {
+  background-color: #2db039;
+}
+
+.completed {
+  background-color: #1d439b;
+}
+
+.onhold {
+  background-color: #f9d457;
+}
+
+.dropped {
+  background-color: #a12f31;
+}
+
+.plantowatch {
+  background-color: #c3c3c3;
+}
+/*# sourceMappingURL=style.css.map */

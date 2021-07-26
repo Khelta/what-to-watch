@@ -1,0 +1,59 @@
+<!Doctype html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <title>What to watch</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'whatToWatchApp/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="../../static/whatToWatchApp/style.css">
+        
+    </head>
+    <body>
+        <h1>What Anime to watch on MyAnimeList?</h1>
+        <form id="username-form" action={% url 'anime' %} method="get">
+
+            <div id="username-input">
+                <input class="form-control" type="text" name="name" placeholder="Input your MyAnimeList Username">
+                <div class="alert alert-danger error" id="user-not-found-error" role="alert" hidden="true">
+                    The user was not found in MyAnimeList!
+                </div>
+                <div class="alert alert-danger error" id="user-not-found-error" role="alert" hidden="true">
+                    You have to input a valid Username.
+                </div>
+            </div>
+            
+            
+
+            <div>
+                <label id=checkbox-grid-label>Choose the categories you want your anime to be selected from:</label>     
+                <div id=checkbox-grid>
+
+                    <div class="rect watching"></div>
+                    <label class="checkbox-label">Watching</label>
+                    <input class="form-check-input" type="checkbox" checked="true" name="watching", value="true">
+                    
+                    <div class="rect completed"></div>
+                    <label class="checkbox-label">Completed</label>
+                    <input class="form-check-input" type="checkbox" name="completed" value="false">
+                    
+                    <div class="rect onhold"></div>
+                    <label class="checkbox-label">On-Hold</label>
+                    <input class="form-check-input" type="checkbox" name="onhold" value="false"> 
+                    
+                    <div class="rect dropped"></div>
+                    <label class="checkbox-label">Dropped</label>
+                    <input class="form-check-input" type="checkbox" name="dropped" value="false">
+                    
+                    <div class="rect plantowatch"></div>
+                    <label class="checkbox-label">Plan to Watch</label>
+                    <input class="form-check-input" type="checkbox" checked="true" name="plantowatch" value="true">
+                </div>
+            </div>
+            
+            <div>
+                <input class="btn btn-primary" type="submit" value="Find next Anime to watch">
+            </div>
+    
+        </form>
+    </body>
+</html>

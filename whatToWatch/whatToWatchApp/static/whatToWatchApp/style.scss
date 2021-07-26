@@ -1,0 +1,74 @@
+$watching: #2db039;
+$completed: #1d439b;
+$onhold: #f9d457;
+$dropped: #a12f31;
+$plantowatch: #c3c3c3;
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    padding: 25px; 
+}
+
+.flex-box, #username-form, #username-form > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#username-form > *{
+    margin: 5px;
+}
+
+#username-input > *{
+    margin: 5px;
+}
+
+input[type="text"]{
+    width: 500px;
+    padding: 10px;
+    text-align: center;
+}
+
+input[type="submit"]{
+    margin: 10px;
+    background-color: $completed;
+}
+
+#checkbox-grid {
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    gap: 0px 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.rect{
+    height: 16px;
+    width: 16px;
+    border-radius: 16px 16px;
+}
+
+.watching{
+    background-color: $watching;
+}
+
+.completed{
+    background-color: $completed;
+}
+
+.onhold{
+    background-color: $onhold;
+}
+
+.dropped{
+    background-color: $dropped;
+}
+
+.plantowatch{
+    background-color: $plantowatch;
+}
