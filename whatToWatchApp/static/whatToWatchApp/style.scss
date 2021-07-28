@@ -7,12 +7,28 @@ $plantowatch: #c3c3c3;
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
+    text-align: center;
+}
+
+h1, h2 {
+    text-align: center;
 }
 
 h1 {
-    text-align: center;
     padding: 10px;
-    font-size: 24px; 
+}
+
+#navbar {
+    height:50px;
+    color: white;
+    text-align: left;
+    display: grid;
+    align-items: center;
+    
+}
+
+#navbar > h3 {
+    margin: 5px;
 }
 
 .flex-box, #username-form, #username-form > div {

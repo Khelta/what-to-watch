@@ -56,7 +56,7 @@ ROOT_URLCONF = 'whatToWatch.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['whatToWatchApp/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -77,10 +77,7 @@ def anime(request):
     imageURL = response.html.find('td.borderClass div div a img', first=True).attrs['data-src']
 
     synopsis = response.html.find('p[itemprop="description"]', first=True).html
-    print(synopsis)
     session.close()
-
-        
 
     return render(request, "whatToWatchApp/anime.html", {"title": animeTitle,
                                                          "titleURL": animeURL,

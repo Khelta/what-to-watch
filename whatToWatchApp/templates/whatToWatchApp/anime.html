@@ -16,10 +16,13 @@
         </script>
     </head>
     <body>
-        <h1>The recommendation is...</h1>
+        {% include 'whatToWatchApp/templates/whatToWatchApp/navbar.html' %}
         <div class="flex-box">
+            <h4>The recommendation is...</h4>
             <div id="title">
-                <a href="{{titleURL}}">{{title}}</a>
+                <h2>
+                    <a href="{{titleURL}}">{{title}}</a>
+                </h2>
             </div>
             <div id="title-image">
                 <a href="{{titleURL}}">
