@@ -1,24 +1,36 @@
-<!DOCTYPE html>
+<!Doctype html>
 <html lang="en">
     <head>
         {% load static %}
         <title>What to watch</title>
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        
         <link rel="stylesheet" type="text/css" href="{% static 'whatToWatchApp/style.css' %}">
         <link rel="stylesheet" type="text/css" href="../../static/whatToWatchApp/style.css">
+
+        <script>
+            function reload(){
+                location.reload();
+            }
+        </script>
     </head>
     <body>
         <h1>The recommendation is...</h1>
         <div class="flex-box">
             <div id="title">
-                <a>{{title}}</a>
+                <a href="{{titleURL}}">{{title}}</a>
             </div>
             <div id="title-image">
-                <img src="{{image}}">
+                <a href="{{titleURL}}">
+                    <img src="{{image}}">
+                </a>
             </div>
-            <div>
-                <input class="btn btn-primary" type="submit" value="Try Again">
-                <input class="btn btn-primary" type="submit" value="Go Back">
+            <div id="button-box">
+                <button class="btn btn-primary" onclick="reload()">Try Again</button>
+                <a href="/">
+                    <button class="btn btn-primary">Go Back</button>
+                </a>
             </div>
         </div>
     </body>

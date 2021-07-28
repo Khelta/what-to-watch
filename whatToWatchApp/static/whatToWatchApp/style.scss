@@ -20,11 +20,7 @@ h1 {
     flex-direction: column;
 }
 
-#username-form > *{
-    margin: 5px;
-}
-
-#username-input > *{
+#username-form > *, #username-input > *{
     margin: 5px;
 }
 
@@ -34,7 +30,7 @@ input[type="text"]{
     text-align: center;
 }
 
-input[type="submit"]{
+.input[type="submit"], button{
     margin: 10px;
     background-color: $completed;
 }
