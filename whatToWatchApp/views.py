@@ -42,13 +42,16 @@ def anime(request):
     soup = BeautifulSoup(page.content, "html.parser")
     userIsValid = True if len(soup.find_all("div", {"class": "error404"})) == 0 else False
 
-    status = -1
-    if len(statusList) == 1:
-        status = statusList[0]
-    elif len(statusList) == 5:
-        status = watchStatusDict['all']
+    if not userIsValid:
+        return render(request, "whatToWatchApp/index.html")
 
-    if status != -1:
+    if len(statusList) == 0:
+        return render(request, "whatToWatchApp/index.html")
+    elif len(statusList) == 5:
+        statusList = [7]
+
+    results = []
+    for status in statusList:
         URL = 'https://myanimelist.net/animelist/' + str(name) + '?status=' + str(status)
 
         session = HTMLSession()
@@ -61,19 +64,25 @@ def anime(request):
         table = table.replace('false', 'False')
 
         table = eval(table)
-        result = random.choice(table)
-        animeTitle = result['anime_title']
-        animeURL = 'https://myanimelist.net' + result['anime_url'].replace('\\', '')
-        print("Dein Random Anime ist:", animeTitle, animeURL)
-        
-        session = HTMLSession()
-        response = session.get(animeURL)
-        imageURL = response.html.find('td.borderClass div div a img', first=True).attrs['data-src']
-        session.close()
+        for entry in table:
+            results.append((entry['anime_title'], entry['anime_url'].replace('\\', '')))
+    
+    result = random.choice(results)
+    animeTitle = result[0]
+    animeURL = 'https://myanimelist.net' + result[1]
+    print("Dein Random Anime ist:", animeTitle, animeURL)
+    
+    session = HTMLSession()
+    response = session.get(animeURL)
+    imageURL = response.html.find('td.borderClass div div a img', first=True).attrs['data-src']
 
-    else:
-        return render(request, "whatToWatchApp/index.html")
+    synopsis = response.html.find('p[itemprop="description"]', first=True).html
+    print(synopsis)
+    session.close()
+
+        
 
     return render(request, "whatToWatchApp/anime.html", {"title": animeTitle,
-                                                        "titleURL": animeURL,
-                                                         "image": imageURL,})
+                                                         "titleURL": animeURL,
+                                                         "image": imageURL,
+                                                         "synopsis": synopsis})
