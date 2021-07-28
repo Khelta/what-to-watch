@@ -14,7 +14,7 @@ def index(request):
 
 def anime(request):
     name = request.GET.get('name', '')
-    if name is '':
+    if name == '':
         return render(request, "whatToWatchApp/index.html")
 
     watchStatusDict = {'watching': 1, 'completed': 2, 'onhold': 3, 'dropped': 4, 'plantowatch': 6, 'all': 7}
@@ -48,7 +48,7 @@ def anime(request):
     elif len(statusList) == 5:
         status = watchStatusDict['all']
 
-    if status is not -1:
+    if status != -1:
         URL = 'https://myanimelist.net/animelist/' + str(name) + '?status=' + str(status)
 
         session = HTMLSession()
@@ -62,14 +62,18 @@ def anime(request):
 
         table = eval(table)
         result = random.choice(table)
-        print("Dein Random Anime ist:", result['anime_title'], result['anime_url'].replace('\\', ''), result['anime_image_path'].replace('\\', ''))
+        animeTitle = result['anime_title']
+        animeURL = 'https://myanimelist.net' + result['anime_url'].replace('\\', '')
+        print("Dein Random Anime ist:", animeTitle, animeURL)
         
-        URL = 'https://myanimelist.net' + result['anime_url'].replace('\\', '')
         session = HTMLSession()
-        response = session.get(URL)
+        response = session.get(animeURL)
         imageURL = response.html.find('td.borderClass div div a img', first=True).attrs['data-src']
+        session.close()
 
     else:
         return render(request, "whatToWatchApp/index.html")
 
-    return render(request, "whatToWatchApp/anime.html", {"title": result['anime_title'], "image": imageURL})
+    return render(request, "whatToWatchApp/anime.html", {"title": animeTitle,
+                                                        "titleURL": animeURL,
+                                                         "image": imageURL,})
