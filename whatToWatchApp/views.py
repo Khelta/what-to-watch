@@ -1,3 +1,4 @@
+from django.http.response import FileResponse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import Context, loader
@@ -54,17 +55,21 @@ def anime(request):
         response = session.get(URL)
         table = response.html.find('.list-table', first=True)
         table = table.attrs["data-items"]
-        
+
         table = table.replace('null', 'None')
         table = table.replace('true', 'True')
         table = table.replace('false', 'False')
-        
+
         table = eval(table)
         result = random.choice(table)
-        print("Dein Random Anime ist:", result['anime_title'], result['anime_url'].replace('\\', ''))
-        # print(response.html.find('a.sort.link')[5].text)
+        print("Dein Random Anime ist:", result['anime_title'], result['anime_url'].replace('\\', ''), result['anime_image_path'].replace('\\', ''))
+        
+        URL = 'https://myanimelist.net' + result['anime_url'].replace('\\', '')
+        session = HTMLSession()
+        response = session.get(URL)
+        imageURL = response.html.find('td.borderClass div div a img', first=True).attrs['data-src']
 
     else:
         return render(request, "whatToWatchApp/index.html")
 
-    return render(request, "whatToWatchApp/anime.html", {"title": result['anime_title']})
+    return render(request, "whatToWatchApp/anime.html", {"title": result['anime_title'], "image": imageURL})
