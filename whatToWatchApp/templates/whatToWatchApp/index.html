@@ -13,11 +13,14 @@
             <div id="username-input">
                 <div class="text-box">Simply enter your Username from <a href="https://myanimelist.net">myanimelist.net</a> in the input line and get a random recommondation from your registered anime.</div> 
                 <input class="form-control" type="text" name="name" placeholder="Input your MyAnimeList Username">
-                <div class="alert alert-danger error" id="user-not-found-error" role="alert" {% if user_found %} hidden {% endif %}>
+                <div class="alert alert-danger error" id="user-not-found-error" role="alert" {% if user_found|default_if_none:"true" %} hidden {% endif %}>
                     The user '{{user_name|default:"USERERROR"}}' was not found in MyAnimeList!
                 </div>
-                <div class="alert alert-danger error" id="user-invalid-error" role="alert" {% if user_valid %} hidden {% endif %}>
+                <div class="alert alert-danger error" id="user-invalid-error" role="alert" {% if user_valid|default_if_none:"true" %} hidden {% endif %}>
                     You have to input a valid Username.
+                </div>
+                <div class="alert alert-danger error" id="user-no-entries-error" role="alert" {% if user_no_entries|default_if_none:"true" %} hidden {% endif %}>
+                    The user '{{user_name|default:"USERERROR"}}' has no anime in the selected categories.
                 </div>
             </div>
             

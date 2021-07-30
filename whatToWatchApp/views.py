@@ -43,10 +43,10 @@ def anime(request):
     userIsFound= True if len(soup.find_all("div", {"class": "error404"})) == 0 else False
 
     if not userIsFound:
-        return render(request, "whatToWatchApp/index.html", context={"user_found": False, "user_valid": True, "user_name": name})
+        return render(request, "whatToWatchApp/index.html", context={"user_found": False, "user_name": name})
 
     if len(statusList) == 0:
-        return render(request, "whatToWatchApp/index.html", context={"user_found": True, "user_valid": True})
+        return render(request, "whatToWatchApp/index.html")
     elif len(statusList) == 5:
         statusList = [7]
 
@@ -67,6 +67,8 @@ def anime(request):
         for entry in table:
             results.append((entry['anime_title'], entry['anime_url'].replace('\\', '')))
     
+    if len(results) == 0:
+        return render(request, "whatToWatchApp/index.html", context={"user_no_entries": False, "user_name":name})
     result = random.choice(results)
     animeTitle = result[0]
     animeURL = 'https://myanimelist.net' + result[1]
