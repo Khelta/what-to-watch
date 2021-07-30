@@ -10,12 +10,12 @@ import random, time
 
 # Create your views here.
 def index(request):
-    return render(request, "whatToWatchApp/index.html")
+    return render(request, "whatToWatchApp/index.html", context={"user_found": True, "user_valid": True})
 
 def anime(request):
     name = request.GET.get('name', '')
     if name == '':
-        return render(request, "whatToWatchApp/index.html")
+        return render(request, "whatToWatchApp/index.html", context={"user_found": True, "user_valid": False})
 
     watchStatusDict = {'watching': 1, 'completed': 2, 'onhold': 3, 'dropped': 4, 'plantowatch': 6, 'all': 7}
 
@@ -40,13 +40,13 @@ def anime(request):
     page = webrequests.get(URL)
 
     soup = BeautifulSoup(page.content, "html.parser")
-    userIsValid = True if len(soup.find_all("div", {"class": "error404"})) == 0 else False
+    userIsFound= True if len(soup.find_all("div", {"class": "error404"})) == 0 else False
 
-    if not userIsValid:
-        return render(request, "whatToWatchApp/index.html")
+    if not userIsFound:
+        return render(request, "whatToWatchApp/index.html", context={"user_found": False, "user_valid": True})
 
     if len(statusList) == 0:
-        return render(request, "whatToWatchApp/index.html")
+        return render(request, "whatToWatchApp/index.html", context={"user_found": True, "user_valid": True})
     elif len(statusList) == 5:
         statusList = [7]
 
