@@ -43,7 +43,7 @@ def anime(request):
     userIsFound= True if len(soup.find_all("div", {"class": "error404"})) == 0 else False
 
     if not userIsFound:
-        return render(request, "whatToWatchApp/index.html", context={"user_found": False, "user_valid": True})
+        return render(request, "whatToWatchApp/index.html", context={"user_found": False, "user_valid": True, "user_name": name})
 
     if len(statusList) == 0:
         return render(request, "whatToWatchApp/index.html", context={"user_found": True, "user_valid": True})
