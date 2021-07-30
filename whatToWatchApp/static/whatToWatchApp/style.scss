@@ -4,10 +4,13 @@ $onhold: #f9d457;
 $dropped: #a12f31;
 $plantowatch: #c3c3c3;
 
+$navbar-height: 50px;
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     text-align: center;
+    color: black;
 }
 
 h1, h2 {
@@ -18,17 +21,35 @@ h1 {
     padding: 10px;
 }
 
-#navbar {
-    height:50px;
+a.styleless-link {
     color: white;
-    text-align: left;
-    display: grid;
-    align-items: center;
-    
+    text-decoration: none;
 }
 
-#navbar > h3 {
-    margin: 5px;
+#navbar {
+    height: $navbar-height;
+    color: white;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+#navbar > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: $navbar-height;
+}
+
+.navbar-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.spacer {
+    flex-grow: 1;
 }
 
 .flex-box, #username-form, #username-form > div {
@@ -40,6 +61,7 @@ h1 {
 
 .text-box {
     width: 50%;
+    color: black;
 }
 
 #username-form > *, #username-input > *{

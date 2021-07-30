@@ -2,6 +2,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   text-align: center;
+  color: black;
 }
 
 h1, h2 {
@@ -12,19 +13,49 @@ h1 {
   padding: 10px;
 }
 
+a.styleless-link {
+  color: white;
+  text-decoration: none;
+}
+
 #navbar {
   height: 50px;
   color: white;
   text-align: left;
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: 15px;
 }
 
-#navbar > h3 {
-  margin: 5px;
+#navbar > * {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 50px;
+}
+
+.navbar-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.spacer {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .flex-box, #username-form, #username-form > div {
@@ -45,6 +76,7 @@ h1 {
 
 .text-box {
   width: 50%;
+  color: black;
 }
 
 #username-form > *, #username-input > * {
