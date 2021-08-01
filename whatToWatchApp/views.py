@@ -17,11 +17,14 @@ def impressum(request):
 
 def anime(request):
     name = request.GET.get('name', '')
+    # if no name is given go to index
     if name == '':
         return render(request, "whatToWatchApp/index.html", context={"user_found": True, "user_valid": False})
 
+    # Indicies for myanimelist
     watchStatusDict = {'watching': 1, 'completed': 2, 'onhold': 3, 'dropped': 4, 'plantowatch': 6, 'all': 7}
 
+    # Get checkbox entries
     watching = request.GET.get('watching', 'false')
     completed = request.GET.get('completed', 'false')
     onhold = request.GET.get('onhold', 'false')
@@ -30,6 +33,8 @@ def anime(request):
 
     statusList = []
 
+    
+    # Check for legit values and put all selected checkboxes in statusList
     watchStatus = [watching, completed, onhold, dropped, plantowatch]
     watchString = ['watching', 'completed', 'onhold', 'dropped', 'plantowatch']
     for i in range(0, len(watchStatus)):
@@ -39,6 +44,7 @@ def anime(request):
             print(watchStatus[i], type(watchStatus[i]))
             return render(request, "whatToWatchApp/index.html")
 
+    # Check if the profile is valid
     URL = 'https://myanimelist.net/profile/' + str(name)
     page = webrequests.get(URL)
 
@@ -48,12 +54,14 @@ def anime(request):
     if not userIsFound:
         return render(request, "whatToWatchApp/index.html", context={"user_found": False, "user_name": name})
 
+    # If no checkbox is selected go to index
     if len(statusList) == 0:
         return render(request, "whatToWatchApp/index.html")
     elif len(statusList) == 5:
         statusList = [7]
 
     results = []
+    # For each clicked checkbox get the anime entries from myanimelist
     for status in statusList:
         URL = 'https://myanimelist.net/animelist/' + str(name) + '?status=' + str(status)
 
@@ -70,17 +78,22 @@ def anime(request):
         for entry in table:
             results.append((entry['anime_title'], entry['anime_url'].replace('\\', '')))
     
+    # If there are no anime entries go to index
     if len(results) == 0:
         return render(request, "whatToWatchApp/index.html", context={"user_no_entries": False, "user_name":name})
+    
+    # Choose a random entry from the found ones
     result = random.choice(results)
     animeTitle = result[0]
     animeURL = 'https://myanimelist.net' + result[1]
     print("Dein Random Anime ist:", animeTitle, animeURL)
     
+    # Get the image of the selected anime
     session = HTMLSession()
     response = session.get(animeURL)
     imageURL = response.html.find('td.borderClass div div a img', first=True).attrs['data-src']
 
+    # Get the synopsis of the selected anime
     synopsis = response.html.find('p[itemprop="description"]', first=True).html
     session.close()
 
