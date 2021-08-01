@@ -12,6 +12,9 @@ import random, time
 def index(request):
     return render(request, "whatToWatchApp/index.html", context={"user_found": True, "user_valid": True})
 
+def impressum(request):
+    return render(request, "whatToWatchApp/impressum.html")
+
 def anime(request):
     name = request.GET.get('name', '')
     if name == '':
