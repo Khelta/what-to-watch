@@ -3,11 +3,9 @@
     <head>
         {% load static %}
         <title>What to watch</title>
-        {% include 'whatToWatchApp/shared_header.html' %}
     </head>
     <body>
         {% include 'whatToWatchApp/navbar.html' %}
-        
         <form id="username-form" action={% url 'anime' %} method="get">
 
             <div id="username-input">
@@ -24,8 +22,6 @@
                 </div>
             </div>
             
-            
-
             <div>
                 <label id=checkbox-grid-label>Choose the categories you want your anime to be selected from:</label>     
                 <div id=checkbox-grid>
@@ -57,5 +53,6 @@
             </div>
     
         </form>
+        {% include 'whatToWatchApp/footer.html' %}
     </body>
 </html>

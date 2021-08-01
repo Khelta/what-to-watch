@@ -6,6 +6,7 @@ $plantowatch: #c3c3c3;
 
 $navbar-height: 50px;
 $media-width: 700px;
+$footer-height: 50px;
 
 @media (max-width: $media-width) {
     .text-box {
@@ -21,11 +22,27 @@ $media-width: 700px;
     }
 }
 
+a {
+    color: var(--bs-blue)
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     text-align: center;
     color: black;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#footer {
+    margin-top: auto;
+    min-height: $footer-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 a.styleless-link {
@@ -43,11 +60,12 @@ a.styleless-link {
     padding: 15px;
 }
 
-#navbar > * {
+#navbar > * , #footer > *{
     display: flex;
     justify-content: center;
     align-items: center;
     height: $navbar-height;
+    padding: 0 15px 0 0;
 }
 
 .navbar-text {
